@@ -14,10 +14,10 @@ export const theme: ThemeUserConfig = {
   socialCard: '/images/social-card.png',
   /** Specify the default language for this site. */
   locale: {
-    lang: 'en-US',
-    attrs: 'en_US',
+    lang: 'zh-CN',
+    attrs: 'zh-CN',
     // Date locale
-    dateLocale: 'en-US',
+    dateLocale: 'zh-CN',
     dateOptions: {
       day: 'numeric',
       month: 'short',
@@ -48,11 +48,9 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: 'Blog', link: '/blog' },
-      { title: 'Docs', link: '/docs' },
-      { title: 'Projects', link: '/projects' },
-      { title: 'Links', link: '/links' },
-      { title: 'About', link: '/about' }
+      { title: '文章', link: '/blog' },
+      { title: '项目', link: '/projects' },
+      { title: '关于', link: '/about' }
     ]
   },
 
@@ -61,6 +59,7 @@ export const theme: ThemeUserConfig = {
     // Year format
     year: `© ${new Date().getFullYear()}`,
     // year: `© 2019 - ${new Date().getFullYear()}`,
+    /*
     links: [
       // Registration link
       {
@@ -80,10 +79,11 @@ export const theme: ThemeUserConfig = {
         pos: 2 // position set to 2 will be appended to copyright line
       }
     ],
+    */
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
-    credits: true,
+    credits: false,
     /** Optional details about the social media accounts for this site. */
-    social: { github: 'https://github.com/cworld1/astro-theme-pure' }
+    social: { github: 'https://github.com/FutabaTachibana' }
   },
 
   // [Content]
@@ -166,7 +166,7 @@ export const integ: IntegrationUserConfig = {
   waline: {
     enable: true,
     // Server service link
-    server: 'https://astro-theme-pure-waline.arthals.ink/',
+    server: 'https://waline.f14a.org/',
     // Refer https://waline.js.org/en/guide/features/emoji.html
     emoji: ['bmoji', 'weibo'],
     // Refer https://waline.js.org/en/reference/client/props.html
@@ -176,7 +176,7 @@ export const integ: IntegrationUserConfig = {
       comment: true,
       locale: {
         reaction0: 'Like',
-        placeholder: 'Welcome to comment. (Email to receive replies. Login is unnecessary)'
+        placeholder: '欢迎评论。 (Email 用于接收回复，如果你登录了则无需填写)'
       },
       imageUploader: false
     }

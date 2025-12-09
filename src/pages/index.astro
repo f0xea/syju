@@ -11,9 +11,9 @@ import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import config from '@/site-config'
 
-const languages = ['Html', 'JavaScript', 'CSS', 'Shell']
-const frontend = ['TypeScript', 'Vite', 'Webpack', 'Astro']
-const backend = ['Vercel', 'Waline']
+const languages = ['Java', 'C++', 'Shell', 'Python']
+const tools = ['Git', 'Nginx', 'IntelliJ IDEA', 'VS Code']
+const os = ['Windows', 'macOS', 'Ubuntu', 'Debian']
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
@@ -43,13 +43,13 @@ if (!images[imagePath])
       <div class='flex flex-col items-center gap-y-4'>
         <h1 class='text-3xl font-medium'>{config.author}</h1>
         <div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
-          <Label title='Somewhere'>
+          <Label title='Jinhua, Zhejiang'>
             <Icon name='location' class='size-5' slot='icon' />
           </Label>
           <Label
-            title='Source code'
+            title='GitHub'
             as='a'
-            href='https://github.com/cworld1/astro-theme-pure'
+            href='https://github.com/FutabaTachibana'
             target='_blank'
           >
             <Icon name='github' class='size-5' slot='icon' />
@@ -57,9 +57,9 @@ if (!images[imagePath])
         </div>
       </div>
 
-      {/* Get template */}
+      {/* Email */}
       <a
-        href='https://github.com/cworld1/astro-theme-pure'
+        href='mailto:futabatachibana@icloud.com'
         target='_blank'
         class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
       >
@@ -69,23 +69,21 @@ if (!images[imagePath])
           ></span>
           <span class='size-2 rounded-full bg-green-400'></span>
         </span>
-        <p class='font-medium text-muted-foreground'>Get Template</p>
+        <p class='font-medium text-muted-foreground'>futabatachibana@icloud.com</p>
       </a>
     </section>
 
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
-      <Section title='About'>
-        <p class='text-muted-foreground'>Developer / Designer</p>
+      <Section title='关于'>
+        <p class='text-muted-foreground'>Student / Developer</p>
         <p class='text-muted-foreground'>
-          Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione
-          indoctum dissentiunt, cu meliore fuisset mei, vel quod voluptua ne. Ex dicat impedit mel,
-          at eum oratio possit voluptatum.
+          请插入文本。
         </p>
-        <Button title='More about me' class='w-fit self-end' href='/about' variant='ahead' />
+        <Button title='更多' class='w-fit self-end' href='/about' variant='ahead' />
       </Section>
       {
         allPostsByDate.length > 0 && (
-          <Section title='Posts'>
+          <Section title='文章'>
             <ul class='flex flex-col gap-y-1.5 sm:gap-y-2'>
               {allPostsByDate.map((p) => (
                 <li class='flex flex-col gap-x-2 sm:flex-row'>
@@ -93,7 +91,7 @@ if (!images[imagePath])
                 </li>
               ))}
             </ul>
-            <Button title='More posts' class='w-fit self-end' href='/blog' variant='ahead' />
+            <Button title='更多文章' class='w-fit self-end' href='/blog' variant='ahead' />
           </Section>
         )
       }
@@ -127,6 +125,7 @@ if (!images[imagePath])
       />
     </Section> */
       }
+      {/*
       <Section title='Education'>
         <Card
           as='a'
@@ -136,17 +135,18 @@ if (!images[imagePath])
           href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
         >
           {
-            /* <ul class='ms-4 list-disc text-muted-foreground'>
+             <ul class='ms-4 list-disc text-muted-foreground'>
           <li>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
             molestiae laboriosam pariatur!
           </li>
           <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-        </ul> */
+        </ul> 
           }
         </Card>
-      </Section>
-
+      </Section> 
+        */}
+        {/*
       <Section title='Website List'>
         <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
           <ProjectCard
@@ -174,8 +174,9 @@ if (!images[imagePath])
             imagePath='/src/assets/projects/4.jpg'
           />
         </div>
-      </Section>
-
+      </Section> 
+      */}
+      {/*
       <Section title='Certifications'>
         <Card
           as='a'
@@ -185,13 +186,13 @@ if (!images[imagePath])
           href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
         />
       </Section>
+      */}
 
-      <Section title='Skills'>
-        <SkillLayout title='Languages' skills={languages} />
-        <SkillLayout title='Frontend' skills={frontend} />
-        <SkillLayout title='Backend' skills={backend} />
+      <Section title='技能'>
+        <SkillLayout title='编程语言' skills={languages} />
+        <SkillLayout title='开发工具' skills={tools} />
       </Section>
     </div>
-    <Quote class='mt-12' />
+    <!-- <Quote class='mt-12' /> -->
   </main>
 </PageLayout>
