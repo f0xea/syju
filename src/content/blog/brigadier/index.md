@@ -1,8 +1,8 @@
 ---
 title: Minecraft Brigadier API详解————以Fabric为例
 publishDate: 2025-12-07
-updatedDate: 2025-12-07
-description: ''
+updatedDate: 2025-12-10
+description: '带你了解Brigadier API'
 tags: 
     - game
     - minecraft

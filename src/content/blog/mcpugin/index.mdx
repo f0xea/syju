@@ -1,7 +1,7 @@
 ---
 title: Minecraft服务器插件开发从入门到入门
 publishDate: 2025-02-19
-updatedDate: 2025-02-19
+updatedDate: 2025-12-10
 description: 'Minecraft插件开发教程'
 tags: 
     - game
@@ -12,6 +12,9 @@ tags:
     - development
 language: 'Chinese'
 ---
+import { Aside } from 'astro-pure/user'
+import { LinkPreview } from 'astro-pure/advanced'
+
 ## 前言
 ### 关于本篇文章
 本篇文章并非优秀的mc插件编写教程，比起教程，更像是我学习插件编写的笔记。由于我自身水平有限，文章内容难免出现问题，如果读者对文章内容有疑问或者建议，可以通过邮箱或者其它方式联系我，我在此感激不尽！
@@ -45,7 +48,7 @@ bukkit修改了minecraft的底层代码，在代码中添加了许多的钩子�
 5. `Minecraft版本`：按实际开发需求进行选择，一般而言，bukkit插件对版本的判定极为宽松，旧版本的插件可能仍然能在新版本中运行。
 6. `Plugin名称`：按实际情况填写，推荐与项目一致。
 7. `主类`：带上包名。包名的前面部分通常是一个域名的转置，例如`net.minecraft`。Java不会判断你是否拥有这个域名，因此你可以填写`com.example.paperdemo.Paperdemo`，但请注意不要填写`net.minecraft`、`org.bukkit`等你可能会使用的名称作为域名部分。
-8. `许可证`：软件的许可证，例如`MIT`、`GPL 3.0`等，根据自己实际需要选择。示例项目不需要考虑特别多，随便选一个就行。
+8. `许可证`：软件的许可证，例如 *MIT*、*GPL 3.0*等，根据自己实际需要选择。示例项目不需要考虑特别多，随便选一个就行。
 9. 其它选项依据自身情况填写。
 
 之后，点击`创建`后稍等片刻即可创建项目。
@@ -77,7 +80,7 @@ paperdemo
 
 值得注意的是，`Paperdemo.java`是主类。我们将会在这里定义一系列方法，它们决定了插件初始化或启用时的一些行为，或者是注册事件侦听器等重要的行为。
 
-`plugin.yml`储存了关于插件的详细信息，我将在[下一节](./#pluginyml)详细介绍`plugin.yml`。
+`plugin.yml`储存了关于插件的详细信息，我将在[下一节](#pluginyml)详细介绍`plugin.yml`。
 
 ### plugin.yml
 `plugin.yml`的示例文件如下。
@@ -243,7 +246,7 @@ public final class PaperdemoListener implements Listener {
 }
 ```
 
-上述代码中，我调用了事件对象`event`的方法`getBlock()`和`setItemStack()`，前者获取了用桶互动的方块类型，后者设置了事件结束后玩家手上获取到的物品堆栈（ItemStack，物品堆栈即为“占用一个格子的物品组”，它的构造器接受的参数有Material的枚举常量和物品的数量，如果物品的数量未指定则为`1`），而正常情况下应该是对应液体的桶。在上例中，我做了一个这样的改变：如果玩家尝试用桶去装水，将会获得熔岩桶；如果玩家尝试用桶去装熔岩，将会获得水桶。
+上述代码中，我调用了事件对象`event`的方法`getBlock()`和`setItemStack()`，前者获取了用桶互动的方块类型，后者设置了事件结束后玩家手上获取到的物品堆栈（ItemStack，物品堆栈即为“占用一个格子的物品组”，它的构造器接受的参数有Material的枚举常量和物品的数量，如果物品的数量未指定则为**1**），而正常情况下应该是对应液体的桶。在上例中，我做了一个这样的改变：如果玩家尝试用桶去装水，将会获得熔岩桶；如果玩家尝试用桶去装熔岩，将会获得水桶。
 
 编写完事件监听器后，不要忘记注册事件监听器。
 
@@ -324,8 +327,9 @@ public final class PaperdemoListener implements Listener {
 
 如上，我们编写了这个项目的第二个事件监听器。
 
-> 不是所有的事件都能被监听，比如事件`org.bukkit.event.player.PlayerEvent`就不能被监听。在查阅文档时一定要注意这个事件的类有没有实现方法`getHandlerList()`，如果没有，那么它不能被监听。
-{: .prompt-warning }
+<Aside type="caution">
+不是所有的事件都能被监听，比如事件`org.bukkit.event.player.PlayerEvent`就不能被监听。在查阅文档时一定要注意这个事件的类有没有实现方法`getHandlerList()`，如果没有，那么它不能被监听。
+</Aside>
 
 ### 自定义事件
 通过新建一个继承抽象类`Event`的类，实现其中的一些方法，我们便可自定义自己的事件。下面的例子所展示的事件会在玩家切换快捷栏的槽位让钻石变成手持物品后触发。
@@ -477,7 +481,7 @@ public final class PaperdemoListener implements Listener {
 
 注意`player`的成员方法`playSound()`，作用是播放声音，第一个参数可以是一个`Location`对象，也可以是一个`Entity`对象（表示该实体的位置），第二个参数是`Sound`的枚举常量，第三个参数是音量大小，类型是`float`，第四个参数表示音调的高低，类型也是`float`。
 
-此外就是方法`getInventory()`，这个我将会在[物品栏](./#%E7%89%A9%E5%93%81%E6%A0%8F)章节中讲述。
+此外就是方法`getInventory()`，这个我将会在[物品栏](#%E7%89%A9%E5%93%81%E6%A0%8F)章节中讲述。
 
 最后我们适时地触发这个事件。
 
@@ -509,6 +513,14 @@ public final class PaperdemoListener implements Listener {
 这样，我们便可以让我们的事件能被触发。一般地，当玩家切换了快捷栏槽位后手持钻石，事件就会被触发，我们就能看到事件触发后输出的文字；若此时的副手若是下界合金锭，会触发事件监听器，随后事件会被事件监听器取消，我们也就看不到事件触发后输出的文字了。
 
 ## 指令
+
+<Aside title='二编' type="danger">
+这一节中内容是使用 Bukkit API 来实现指令的功能，对于1.21+且使用 Paper 开发的插件，建议使用 Mojang 开发的 [Brigadier API](https://github.com/Mojang/brigadier)，它是 Minecraft 的命令解析框架，能够更方便地实现复杂的指令逻辑。
+
+对于 Brigadier API 的教程，可以看我的文章：
+<LinkPreview href='https://syju.org/blog/brigadier/' />
+</Aside>
+
 还记得我们在`plugin.yml`定义的指令吗？
 
 ```yml
@@ -636,7 +648,7 @@ public class PaperdemoCommand implements CommandExecutor, TabCompleter {
 
 在这里，我们通过`switch case`语句处理了各种参数的逻辑，这是一种常见的方法，当然你也可以使用`if else`。除此之外，我们还用到了对象`sender`的成员方法`sendMessage()`和`getName()`，前者是向命令的执行者发送消息，后者是获取命令的执行者的名字（如果是控制台执行即为`CONSOLE`）。注意到我们还使用了模式匹配的`instanceof`，这是因为`sender`只实现了`CommandSender`接口，不一定是`Player`的示例，我们如果想调用`Player`的成员方法必须要先用关键字`instanceof`，使用模式匹配（Java16以上）的写法可以让代码更加简洁。
 
-我们还调用了实体（类`Entity`）的一些方法，以及使用消息组件（`Component`）美化了输出。有关[实体](./#%E5%AE%9E%E4%BD%93)和[消息组件](./#%E6%B6%88%E6%81%AF%E7%BB%84%E4%BB%B6)的内容我将会在之后的章节中讲解。
+我们还调用了实体（类`Entity`）的一些方法，以及使用消息组件（`Component`）美化了输出。有关[实体](#%E5%AE%9E%E4%BD%93)和[消息组件](#%E6%B6%88%E6%81%AF%E7%BB%84%E4%BB%B6)的内容我将会在之后的章节中讲解。
 
 我们还调用了`Paperdemo`的静态方法`getInstance()`，它能返回主类的唯一实例，也就是插件本身。关于这个方法如何去实现我会在对应章节讲解。
 
@@ -819,8 +831,9 @@ public final class PaperdemoListener implements Listener {
 
 `Entity`中有丰富的功能被实现，由于篇幅限制本篇文章无法一一列举，你可以阅览[相关文档](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Entity.html)了解更多。
 
-> 如果想做优秀的插件开发者，一定要学会去看Bukkit API的Javadoc，这能解决你开发过程中的许多问题。
-{: .prompt-tip }
+<Aside type="tip">
+如果想做优秀的插件开发者，一定要学会去看Bukkit API的Javadoc，这能解决你开发过程中的许多问题。
+</Aside>
 
 ### 玩家接口
 对于方法`sendMessage()`，或许你之前已经见过，它是接口`Player`的一个方法。
@@ -865,13 +878,15 @@ public final class PaperdemoListener implements Listener {
 ## 消息组件
 你可能想让插件输出的消息不再单调，有着丰富的颜色、不同的风格，甚至还能定义点击消息的行为。或许，你可以尝试使用消息组件。本章将介绍`Adventure API`和`BungeeCord chat API`，你可以只学习其中一种，本篇文章在其它地方所用到的消息组件均由`Adventure API`提供。
 
-> 关于`Adventure API`的详细教程可以查阅[官方文档](https://docs.advntr.dev/)
-{: .prompt-info }
+<Aside>
+关于`Adventure API`的详细教程可以查阅[官方文档](https://docs.advntr.dev/)
+</Aside>
 
 ### 使用Adventure API
 
-> 以下内容仅限于Paper，除非你自行添加依赖。
-{: .prompt-info }
+<Aside>
+以下内容仅限于Paper，除非你自行添加依赖。
+</Aside>
 
 [Adventure API](https://jd.advntr.dev/api/4.19.0/)提供了丰富的方式让我们渲染消息。下面我将用之前实现的`/demo msg`命令来做文章，演示如何使用`Adventure API`的相关内容。
 
@@ -1084,11 +1099,12 @@ public class MsgCommand implements CommandExecutor {
 ## 物品栏
 通过`Bukkit API`提供的丰富的有关物品栏的类和方法，我们可以实现许多功能，比如菜单、原地打开末影箱等。
 
-> 本章的**物品栏**指代得较为宽泛，玩家背包、箱子等容器、合成台界面等有“格子”的界面都是物品栏，具体可以看枚举常量`org.bukkit.event.inventory.InventoryType`的值（在[这里](https://jd.papermc.io/paper/1.21.4/org/bukkit/event/inventory/InventoryType.html)）。
-{: .prompt-info }
+<Aside>
+本章的**物品栏**指代得较为宽泛，玩家背包、箱子等容器、合成台界面等有“格子”的界面都是物品栏，具体可以看枚举常量`org.bukkit.event.inventory.InventoryType`的值（在[这里](https://jd.papermc.io/paper/1.21.4/org/bukkit/event/inventory/InventoryType.html)）。
+</Aside>
 
 ### 打开物品栏
-我们演示这么一个功能：当玩家按下`Shift+F`时打开末影箱。`Bukkit API`没有提供玩家按下键盘上的哪个键触发的事件（因为这个完全由客户端决定），但是我们可以监听玩家交换主手和副手的事件，如果此时玩家是下蹲状态，那么便可以运行打开末影箱的代码。于是，我们这么编写事件监听器。
+我们演示这么一个功能：当玩家按下 <kbd>Shift</kbd> + <kbd>F</kbd> 时打开末影箱。`Bukkit API`没有提供玩家按下键盘上的哪个键触发的事件（因为这个完全由客户端决定），但是我们可以监听玩家交换主手和副手的事件，如果此时玩家是下蹲状态，那么便可以运行打开末影箱的代码。于是，我们这么编写事件监听器。
 
 ```java
 // at /src/main/java/top/tachibana/paperdemo/PaperdemoListener.java
@@ -1116,8 +1132,9 @@ public final class PaperdemoListener implements Listener {
 
 `openInventory()`是对象`player`的一个成员方法，用于打开玩家的背包，它的唯一参数是一个`org.bukkit.inventory.Iventory`的实例，`player.getEnderChest()`则返回了对应玩家的末影箱实例。
 
-> `HumanEntity`是`Player`的一个父接口，与`Player`不同的是，只有在线的玩家或者npc才会有对应的`HumanEntity`实例。
-{: .prompt-info }
+<Aside>
+`HumanEntity`是`Player`的一个父接口，与`Player`不同的是，只有在线的玩家或者npc才会有对应的`HumanEntity`实例。
+</Aside>
 
 ### 创建物品栏
 考虑下面的代码，它与上面的代码相似，但是只会在蹲下是丢东西触发，它能打开一个自定义的菜单。
@@ -1207,7 +1224,7 @@ public final class Paperdemo extends JavaPlugin {
 
 这里的内容有点多，我会慢慢讲。注意方法`loadMenu()`，`instance`是一个主类的private变量，表示对象的实例，因为我们在主类直接编写这个方法，所以可以直接调用这个对象。
 
-我们通过对象`Server`的成员方法`createInventory()`创建物品栏.第一个参数是物品栏的主人（类型是接口`InventoryHolder`，不只是玩家，也可以是村民或者其它能打开物品栏的实体），第二个参数是枚举常量`InventoryType`的值（[刚刚](./#%E7%89%A9%E5%93%81%E6%A0%8F)已经介绍过了）,第三个参数是可选的，它的类型是消息组件`Component`，表示物品栏的标题，会显示在GUI的左上角。
+我们通过对象`Server`的成员方法`createInventory()`创建物品栏.第一个参数是物品栏的主人（类型是接口`InventoryHolder`，不只是玩家，也可以是村民或者其它能打开物品栏的实体），第二个参数是枚举常量`InventoryType`的值（[刚刚](#%E7%89%A9%E5%93%81%E6%A0%8F)已经介绍过了）,第三个参数是可选的，它的类型是消息组件`Component`，表示物品栏的标题，会显示在GUI的左上角。
 
 我们再来看`menu`的成员方法`addItem()`，它的参数为若干个`ItemStack`的对象，这个函数会按照你的传参顺序将物品依次填入这个物品栏。
 
@@ -1284,7 +1301,7 @@ public final class PaperdemoListener implements Listener {
 
 我们通过监听玩家点击物品栏的物品槽来实现菜单，当玩家点击菜单的物品时，先取消这个事件（这样无论如何玩家都无法拿出物品栏的物品啦），然后通过`switch case`判断玩家的操作，最后执行对应的内容。
 
-前四个选项都是改变玩家的游戏模式，方法`setGameMode()`我们在[玩家接口](./#%E7%8E%A9%E5%AE%B6%E6%8E%A5%E5%8F%A3)已经讲过。
+前四个选项都是改变玩家的游戏模式，方法`setGameMode()`我们在[玩家接口](#%E7%8E%A9%E5%AE%B6%E6%8E%A5%E5%8F%A3)已经讲过。
 
 第五个选项是关闭当前菜单，我们通过接口`HumanEntity`的方法`closeInventory()`实现。
 
@@ -1317,8 +1334,9 @@ this.getServer().addRecipe(blazeRodToEnderEye);
 
 第二条语句我们调用了方法`addRecipe()`注册了这个配方。
 
-> 当无序合成的原材料小于四个（也就是你能在2*2的格子内合成）时，可以无需借助工作台而使用生存模式的背包合成该物品。
-{: .prompt-tip }
+<Aside type="tip">
+当无序合成的原材料小于四个（也就是你能在2*2的格子内合成）时，可以无需借助工作台而使用生存模式的背包合成该物品。
+</Aside>
 
 #### 有序配方
 当我们合成木镐时，一定要将木板排成一行，如果没有有序配方，工作台无法区分木镐与木斧。在这一节中我们将创建一个有序配方。
@@ -1341,18 +1359,21 @@ ShapedRecipe enchantedGoldenApple = new ShapedRecipe(
 this.getServer().addRecipe(enchantedGoldenApple);
 ```
 
-有序合成的类的构造器与无序合成的一样，在此不多赘述。如果你写过数据包，那么你一定对这种写法很熟悉。这个类的方法`shape()`的三个参数分别表示合成的形状的每一**行**，它由一些字符构成，不同的字符代表不同的材料，我们把它叫做键（key），例如在这里，`B`代表金块（Block of Gold），`A`代表苹果（Apple）。方法`setIngredient()`则将不同的键与材料连接在了一起，它的两个参数分别是键（注意是`char`类型而不是`String`）和材料类型（注意是`Material`类型而不是`ItemStack`）。
+有序合成的类的构造器与无序合成的一样，在此不多赘述。如果你写过数据包，那么你一定对这种写法很熟悉。这个类的方法`shape()`的三个参数分别表示合成的形状的每一**行**，它由一些字符构成，不同的字符代表不同的材料，我们把它叫做键（key），例如在这里， *B* 代表金块（Block of Gold）， *A* 代表苹果（Apple）。方法`setIngredient()`则将不同的键与材料连接在了一起，它的两个参数分别是键（注意是`char`类型而不是`String`）和材料类型（注意是`Material`类型而不是`ItemStack`）。
 
-> 当你的合成配方有空气时，请用空格作为键值，而不是将材料设为`Material.AIR`。
-{: .prompt-warning }
+<Aside type="caution">
+当你的合成配方有空气时，请用空格作为键值，而不是将材料设为`Material.AIR`。
+</Aside>
 
 ![附魔金苹果](./附魔金苹果.png "附魔金苹果")
 
-> 建议使用有意义的字符来作为不同的材料的键值，以增加代码的可读性。
-{: .prompt-info }
+<Aside>
+建议使用有意义的字符来作为不同的材料的键值，以增加代码的可读性。
+</Aside>
 
-> 当有序合成能在2*2的格子内，可以无需借助工作台而使用生存模式的背包合成该物品。
-{: .prompt-tip }
+<Aside type="tip">
+当有序合成能在2*2的格子内，可以无需借助工作台而使用生存模式的背包合成该物品。
+</Aside>
 
 ### 优化项目结构
 将配方相关的代码直接放在方法`onEnable()`并不是一个好选择。为了提高代码的可读性，我们期望的是，有一个专门的类实现这些配方，我们仅需要在方法`onEnable()`内注册这些配方。
@@ -1418,8 +1439,9 @@ public class PaperdemoRecipe {
 
 为什么不选择直接让`PaperdemoRecipe`的静态方法返回某个配方类的实例，而是返回一个列表再使用`forEach()`遍历呢？这是因为当你以后想要为你的插件添加该种类的配方时，你便无需再次注册配方，且这种写法更加简洁。
 
-> 方法`addRecipe()`接受`Recipe`对象，而我们所认识的所有配方类都实现了接口`Recipe`。利用这一原理，我们能不能实现方法`getAllRecipe()`，从而实现只注册一次配方呢？问题留给读者思考。
-{: .prompt-tip }
+<Aside type="tip">
+方法`addRecipe()`接受`Recipe`对象，而我们所认识的所有配方类都实现了接口`Recipe`。利用这一原理，我们能不能实现方法`getAllRecipe()`，从而实现只注册一次配方呢？问题留给读者思考。
+</Aside>
 
 ### 多种类的输入
 部分物品合成配方的不仅仅支持一种材料类型，例如箱子，可以由任意种类的木板环绕一圈合成，难道我们需要为每种木板都创建一个配方么？其实可以借助接口`RecipeChoice`来简单地实现我们的需求。
@@ -1587,13 +1609,15 @@ public final class PaperdemoListener implements Listener {
 
 ![交易](./交易.png "交易")
 
-> 这种实现有一种局限性，当村民补货后，它的配方又变回了原来的配方。那么我们能不能让村民补货后仍然保持这个配方呢？问题留给读者思考。
-{: .prompt-tip }
+<Aside type="tip">
+这种实现有一种局限性，当村民补货后，它的配方又变回了原来的配方。那么我们能不能让村民补货后仍然保持这个配方呢？问题留给读者思考。
+</Aside>
 
 ### 锻造
 
-> 本章内容仅适用于1.20+，
-{: .prompt-info }
+<Aside>
+本章内容仅适用于1.20+，
+</Aside>
 
 添加锻造配方用到的对象与煅烧大同小异。我们先来看对应的类的构造器的类型声明。
 
@@ -1624,7 +1648,7 @@ SmithingTrimRecipe(
 
 !["锻造"](./锻造.png "锻造")
 
-以上图为例，形式参数`key`是配方的ID，`template`即为下界升级模板的槽位，`base`即为钻石剑的槽位，`addition`即为下界合金锭的槽位，`result`即为下界合金剑的槽位，这在盔甲纹饰配方中不可用。值得注意的是，除了`key`的类型是`NamespacedKey`和`result`的类型是`ItemStack`以外，其余形式参数的类型均为`RecipeChoice`，该接口在[之前](./#%E5%A4%9A%E7%A7%8D%E7%B1%BB%E7%9A%84%E8%BE%93%E5%85%A5)已介绍过。
+以上图为例，形式参数`key`是配方的ID，`template`即为下界升级模板的槽位，`base`即为钻石剑的槽位，`addition`即为下界合金锭的槽位，`result`即为下界合金剑的槽位，这在盔甲纹饰配方中不可用。值得注意的是，除了`key`的类型是`NamespacedKey`和`result`的类型是`ItemStack`以外，其余形式参数的类型均为`RecipeChoice`，该接口在[之前](#%E5%A4%9A%E7%A7%8D%E7%B1%BB%E7%9A%84%E8%BE%93%E5%85%A5)已介绍过。
 
 按照之前说明过的添加其它配方的方式来添加锻造配方即可。记得要注册配方。
 
@@ -1647,7 +1671,7 @@ $$
 
 **TPS**（即Ticks per Second）的意思是每秒钟游戏运行多少刻，一般是20；**MSPT**（即Milliseconds per Tick）的意思是每一刻需要运行多长时间，一般为50。
 
-在游戏中我们可以按`F3 + 2`查看当前的TPS。
+在游戏中我们可以按 <kbd>F3</kbd> + <kbd>2</kbd> 查看当前的TPS。
 
 ### 创建一个任务
 在我们编写插件的时候，可能会设计复杂的运行逻辑，可能有些代码并不会在事件触发后立即执行，又或者有些代码运行速度较慢，不宜占用游戏主线程。包`org.bukkit.scheduler`提供了多样的类和方法，能实现以上的需求。
@@ -1775,8 +1799,9 @@ public final class PaperdemoListener implements Listener {
 
 使用方法`runTaskAsynchronously()`，任务将会以异步的方式执行，即，任务将会在主线程以外的另一个线程运行，当玩家丢出下界合金锭的时候，游戏也不会暂停了。
 
-> 若你的任务涉及从硬盘中读取数据、从网络中获取资源等耗时较长的动作，请**务必**使用异步的方式执行任务。
-{: .prompt-info }
+<Aside>
+若你的任务涉及从硬盘中读取数据、从网络中获取资源等耗时较长的动作，请**务必**使用异步的方式执行任务。
+</Aside>
 
 然而，刚刚的示例也有一点问题。每当事件触发任务被执行时，服务器后台总会发送以下的警告。
 
@@ -1842,8 +1867,9 @@ public final class PaperdemoListener implements Listener {
 
 同理，也有方法`runTaskLaterAsynchronously()`可以使用。
 
-> 40 ticks并不一定等于2s。考虑到服务器可能调整了每秒的最大刻数量或者卡顿的情况，40 ticks可能会小于或大于2s。
-{: .prompt-warning }
+<Aside type="tip">
+40 ticks并不一定等于2s。考虑到服务器可能调整了每秒的最大刻数量或者卡顿的情况，40 ticks可能会小于或大于2s。
+</Aside>
 
 ### 周期执行任务
 `BukkitScheduler`提供了方法`runTaskTimer()`，可以定期执行任务。或者你可以用`BukkitRunnable`的示例的方法`runTaskTimer()`。
@@ -1883,8 +1909,9 @@ public final class PaperdemoListener implements Listener {
 
 同样地，`runTaskTimer()`也有异步版本`runTaskTimerAsynchronously()`。
 
-> 示例插件会重复执行`runTaskTimer()`，尽管有时该任务已被执行。你能想到优化的方式吗？问题留给读者思考。
-{: .prompt-tip }
+<Aside type="tip">
+示例插件会重复执行`runTaskTimer()`，尽管有时该任务已被执行。你能想到优化的方式吗？问题留给读者思考。
+</Aside>
 
 ## 配置
 
@@ -1930,8 +1957,9 @@ public final class Paperdemo extends JavaPlugin {
 
 这样，当我们重载插件后，`config.yml`会自动生成，且内容与我们放在`resources`文件夹下的一致。
 
-> 加载资源文件时一定要保证`resources`文件夹下有对应的资源文件。
-{: .prompt-warning }
+<Aside type="danger">
+加载资源文件时一定要保证`resources`文件夹下有对应的资源文件。
+</Aside>
 
 ### 加载和获取config.yml
 为了节省代码量，我们创建一个新类，获取配置文件的字段，然后提供这些字段的getter。

@@ -1,14 +1,16 @@
 ---
 title: Minecraft服务器配置向客户端发送资源包
 publishDate: 2025-11-23
-updatedDate: 2025-11-23
-description: ''
+updatedDate: 2025-12-10
+description: '到底会不会让玩家更方便不清楚，但是腐竹可麻烦了'
 tags: 
     - game
     - minecraft
     - server
 language: 'Chinese'
 ---
+import { Aside } from 'astro-pure/user'
+
 ## 前言
 ~~心系玩家的~~腐竹发现，用小游戏或者地图存档开服的时候，经常需要安装地图作者指定的资源包（仅安装在客户端的资源包一般是材质包，下文都称之为资源包）。对于部分玩家来说，安装资源包轻而易举，但是有些玩家可能觉得麻烦。
 
@@ -93,8 +95,9 @@ server {
 
 你将会得到形如`https://github.com/FutabaTachibana/resourcepack/raw/refs/heads/main/example.zip`的链接，这就是资源包的URI。
 
-> 部分网络不好的玩家可能无法直接访问 Github 。
-{: .prompt-warning }
+<Aside>
+部分网络不好的玩家可能无法直接访问 Github 。
+</Aside>
 
 ### 使用网盘
 如果某个网盘提供了直链下载功能，那么你可以自己将文件上传到这个网盘上，并将直链用作这个资源包的 URI 。
@@ -120,10 +123,11 @@ futaba@Tachibana:~$ sha1sum example.zip
 
 你也可以不通过 80 端口使用 HTTP 传输资源包（但是无法使用 HTTPS 协议）。
 
-> 在中国大陆提供网络服务必须严格遵守相关法律法规。
-> 
-> 禁止使用该技术在互联网上提供非法内容。
-{: .prompt-warning }
+<Aside type="danger">
+在中国大陆提供网络服务必须严格遵守相关法律法规。
+
+禁止使用该技术在互联网上提供非法内容。
+</Aside>
 
 ## 相关网站
 [Minecraft Wiki: 服务端配置文件格式](https://zh.minecraft.wiki/w/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F#Java%E7%89%88_3)
