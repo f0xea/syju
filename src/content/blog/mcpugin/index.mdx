@@ -33,7 +33,7 @@ bukkit修改了minecraft的底层代码，在代码中添加了许多的钩子�
 为了方便开发，本篇文章所使用的开发的游戏环境为paper-1.21.4，开发工具是[IntelliJ IDEA](https://www.jetbrains.com/idea/)和IntelliJ IDEA的插件[Minecraft Development](https://plugins.jetbrains.com/plugin/8327-minecraft-development)（这个真的强力推荐）。
 
 ### 关于本文档的示例插件
-项目文件已上传至[github](https://github.com/FutabaTachibana/paperdemo)。因为使用到了Paper独有的内容（该部分会特别说明），所以该插件仅能在Paper上运行。
+项目文件已上传至[github](https://github.com/f0xea/paperdemo)。因为使用到了Paper独有的内容（该部分会特别说明），所以该插件仅能在Paper上运行。
 
 ## 第一个paper项目
 根据[paper官方文档](https://docs.papermc.io/paper/dev/project-setup)，我们尝试创建一个paper项目。
@@ -928,7 +928,7 @@ public class PaperdemoCommand implements CommandExecutor, TabCompleter {
                             .append(Component.text("点我复制链接", NamedTextColor.YELLOW, TextDecoration.BOLD)
                                     .clickEvent(ClickEvent.copyToClipboard("https://syju.org/posts/mcplugin")))
                             .append(Component.text("点我打开链接", NamedTextColor.AQUA, TextDecoration.UNDERLINED)
-                                    .clickEvent(ClickEvent.openUrl("https://github.com/FutabaTachibana/paperdemo")))
+                                    .clickEvent(ClickEvent.openUrl("https://github.com/f0xea/paperdemo")))
                             .append(Component.text("指针拖动到我上面试试", NamedTextColor.GREEN, TextDecoration.STRIKETHROUGH)
                                     .hoverEvent(HoverEvent.showText(Component.text("你真拖啊", NamedTextColor.DARK_RED, TextDecoration.STRIKETHROUGH))));
                     sender.sendMessage(text1);
@@ -2257,7 +2257,7 @@ public final class Paperdemo extends JavaPlugin {
 ### 一些有用的外部网站
 这些网站可能对你学习插件编写有帮助，建议收藏。
 
-- [本项目的github仓库](https://github.com/FutabaTachibana/paperdemo)
+- [本项目的github仓库](https://github.com/f0xea/paperdemo)
 - [Bukkit API（spigotmc.org提供）](https://hub.spigotmc.org/javadocs/spigot/)
 - [Bukkit API（papermc.io提供，多了Paper的专属API）](https://jd.papermc.io/paper/1.21.4/)
 - [Paper官方文档](https://docs.papermc.io/paper)

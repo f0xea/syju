@@ -397,9 +397,9 @@ default <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> con
 }
 ```
 
-可见它并没有指定 `S` 的类型，所以我们有时无法访问 `CommandSourceStack` 方法，可见这种方法会受到很多限制。
+可见它并没有指定 `S` 的类型，所以我们有时无法访问 `CommandSourceStack` 的实例，可见这种方法会受到很多限制。
 
-事实上，传入这个方法的 `S` 是一个客户端类，我们可以通过反射来访问。
+事实上，传入这个方法的 `S` 是一个客户端类 `ClientSuggestionProvider`，我们可以通过反射来访问。
 
 <Aside type='danger'>
 不建议使用这种方法来实现自动补全功能，推荐使用 `SuggestionProvider<S>` 接口。

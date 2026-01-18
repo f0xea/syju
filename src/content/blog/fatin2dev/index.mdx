@@ -1,0 +1,56 @@
+---
+title: Fatin2 插件开发教程
+publishDate: 2025-12-19
+updateDate: 2025-12-19
+description: '本篇文章主要讲述如何开发 Fatin2 插件，涵盖从环境搭建到插件发布的全过程。'
+tags: 
+    - fatin2
+language: 'Chinese'
+draft: true
+---
+import { Aside } from 'astro-pure/user'
+
+## 什么是 Fatin2
+
+## 环境搭建
+
+## 事件处理
+我们来看一个简单的事件处理示例：
+
+```java
+@EventHandler
+    public void onCallMe(MessageEvent event) {
+        if (event.getMessage().parse().contains("Fatin")) {
+            event.send(MessageGenerator.text("有什么事情吗"));
+        }
+    }
+```
+
+对于所有的事件监听器，我们都需要使用 `@EventHandler` 注解进行标记，`@EventHandler` 注解有一个可选参数 `priority`，用于指定事件处理的优先级，优先级数值越小，优先级越高，默认值为 `EventPriority.NORMAL`，你可以指定为特定的优先级：
+- `EventPriority.HIGHEST`
+- `EventPriority.HIGH`
+- `EventPriority.NORMAL`
+- `EventPriority.LOW`
+- `EventPriority.LOWEST`
+- `EventPriority.MONITOR` （仅用于监视事件，不修改事件内容）
+
+事件监听器只需要一个参数，参数类型为对应的事件类型，这个类型一定是 `Event` 的子类，例如上面的 `MessageEvent`。不同的类型的事件会在不同情况下被触发，具体可参考// TODO: 添加事件类型链接。
+
+`MessageEvent` 提供了获取消息内容和发送消息的方法，`event.getMessage().parse()` 方法用于获取消息的粗文本内容，是一个 `String`，方便进行字符串处理，`event.send(...)` 方法用于发送消息。
+
+`MessageEvent#send` 方法接受数个 `JsonObject` 对象，代表一个消息内容，可以使用 `MessageGenerator` 类来生成消息内容，`MessageGenerator.text("有什么事情吗")` 会生成一个文本消息。
+
+```json
+{
+  "type": "text",
+  "data": {
+    "text": "有什么事情吗"
+  }
+}
+```
+
+这段 JSON 用于格式化向 Onebot 客户端发送消息的内容，你无需关心这段 JSON 的具体格式，直接使用 `MessageGenerator` 类生成即可。
+
+## 命令注册
+
+## API 详解

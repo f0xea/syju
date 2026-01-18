@@ -21,7 +21,7 @@ import { Aside } from 'astro-pure/user'
 ## 了解配置文件
 你一定知道Minecraft服务器有个叫做`server.properties`的文件，仔细观察（别真观察了，直接使用`Ctrl+F`或者`Command+F`查找关键字*res*吧）这个配置文件，你会发现有四个（实际上是五个）跟资源包有关的键，接下来我会讲解如何正确填写这四个键的值。
 
-```properties
+```properties title='server.properties'
 require-resource-pack=false
 resource-pack=
 resource-pack-id=
@@ -48,7 +48,7 @@ resource-pack-sha1=
 
 ### 使用 Nginx 
 配置文件如下
-```nginx
+```nginx title='nginx.conf'
 server {
     # 如果使用 HTTPS ，这里应该监听443端口然后提供 SSL 证书
     listen 80;
@@ -93,7 +93,7 @@ server {
 
 ![Raw](./raw.png "Raw")
 
-你将会得到形如`https://github.com/FutabaTachibana/resourcepack/raw/refs/heads/main/example.zip`的链接，这就是资源包的URI。
+你将会得到形如`https://github.com/f0xea/resourcepack/raw/refs/heads/main/example.zip`的链接，这就是资源包的URI。
 
 <Aside>
 部分网络不好的玩家可能无法直接访问 Github 。
